@@ -1,0 +1,17 @@
+
+
+{{#if successMsg}}
+<div>{{successMsg}}</div>
+{{/if}}
+
+<h1>{{title}}</h1>
+
+
+<h2>Products</h2>
+
+{{# each products }} 
+
+	<p><strong>Title</strong>: {{this.title}}</p>
+
+
+{{/each}}
