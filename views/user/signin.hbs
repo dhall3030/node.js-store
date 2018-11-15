@@ -1,10 +1,15 @@
 
 		<h1>Sign In</h1>
-		{{#if hasErrors}}
+		
+		
+
+
+
+		{{#if errorMsg}}
 
 		<div class="alert alert-danger">
 			
-			{{#each messages }} 
+			{{#each errorMsg }} 
 
 				<p>{{this}}</p>
 			
@@ -13,6 +18,7 @@
 		</div>
 			
 		{{/if}}
+		
 		<form action="/user/signin" method="post">
 			
 			<div class="form-group">

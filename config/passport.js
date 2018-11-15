@@ -40,6 +40,9 @@ passport.use('local.signup', new LocalStrategy({
         var messages = [];
         errors.forEach(function(error) {
            messages.push(error.msg);
+        
+
+
         });
         return done(null, false, req.flash('error', messages));
     }

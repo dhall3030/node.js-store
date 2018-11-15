@@ -20,9 +20,7 @@ router.get('/profile', function(req, res, next) {
 
 router.get('/signup',  function(req, res, next) {
 
-  var messages = req.flash('error');
-	
-  res.render('user/signup', {csrfToken: req.csrfToken(), messages: messages , hasErrors: messages.length > 0 });
+  res.render('user/signup', {csrfToken: req.csrfToken()});
 
 });
 
@@ -31,6 +29,7 @@ router.post('/signup', passport.authenticate('local.signup', {
 
   //successRedirect: '/user/profile', 
   failureRedirect: '/user/signup', 
+  badRequestMessage : 'Please fill the form',
   failureFlash: true
 
 
@@ -57,9 +56,7 @@ router.post('/signup', passport.authenticate('local.signup', {
 
 router.get('/signin',  function(req, res, next) {
 
-  var messages = req.flash('error');
-  
-  res.render('user/signin', {csrfToken: req.csrfToken(), messages: messages , hasErrors: messages.length > 0 });
+  res.render('user/signin', {csrfToken: req.csrfToken() });
 
 });
 

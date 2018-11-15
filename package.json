@@ -19,6 +19,7 @@
     "handlebars": "^4.0.12",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
+    "method-override": "^3.0.0",
     "mongoose": "^5.3.11",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",

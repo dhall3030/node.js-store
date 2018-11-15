@@ -1,7 +1,7 @@
 
 
 {{#if successMsg}}
-<div>{{successMsg}}</div>
+	<div>{{successMsg}}</div>
 {{/if}}
 
 <h1>{{title}}</h1>
@@ -9,9 +9,14 @@
 
 <h2>Products</h2>
 
+<a href="product/create">New Product</a>
+
 {{# each products }} 
 
-	<p><strong>Title</strong>: {{this.title}}</p>
+	<p><strong>Title</strong>: {{this.title}} | 
+		<a href="product/edit/{{this._id}}" >Edit</a> | 
+		<a href="product/delete/{{this._id}}" >Delete</a>
+	</p>
 
 
 {{/each}}
