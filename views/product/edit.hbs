@@ -15,7 +15,7 @@
 			
 		{{/if}}
 		
-		<form action="/product/{{product._id}}?_method=PUT" method="post">
+		<form action="/product/{{product._id}}?_method=PUT" enctype="multipart/form-data" method="post">
 			
 			<input type="hidden" name="_method" value="PUT">
 			
@@ -39,7 +39,16 @@
 				<input type="text" id="price" name="price" value="{{product.price}}">
 
 			</div>
-			<input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+			<div class="form-group">
+				<label for="productImage">Product Image</label> 
+
+				  <input type="file" name="productImage">
+
+			</div>
+
+
+			{{!-- <input type="hidden" name="_csrf" value="{{csrfToken}}"> --}}
 			<button type="submit" class="">Update</button>
 
 

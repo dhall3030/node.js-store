@@ -4,13 +4,72 @@ var router = express.Router();
 var mongoose = require('mongoose'); 
 var Product = require('../models/product');
 
+const multer = require('multer');
+
+const fs = require('fs');
+
 var csrf = require('csurf');
 
 var csrfProtection = csrf();
 
-router.use(csrfProtection);
+//router.use(csrfProtection);
 
-/* GET users listing. */
+
+
+//config multer
+const storage = multer.diskStorage({
+
+	destination: function(req, file, cb) {
+
+		cb(null, './uploads/'); 
+
+	},
+	filename: function(req, file, cb) {
+		cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+		//cb(null, new Date().toISOString() + file.originalname);
+		//cb(null, Date.now() + file.originalname); 
+
+	}
+});
+
+
+const fileFilter = (req, file,cb) => {
+
+	//reject a file
+	if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+
+		cb(null, true); 
+
+	}else{
+
+		cb(null, false);
+
+	}
+
+};
+
+
+const upload = multer({ 
+
+	storage: storage , 
+	limits:{
+
+		fileSize: 1024 * 1024 * 5
+	},
+	fileFilter: fileFilter
+
+
+});
+
+
+
+
+
+
+
+
+
+
 router.get('/', function(req, res, next) {
    
    Product.find()
@@ -40,12 +99,13 @@ router.get('/', function(req, res, next) {
 // Add Product Form 
 router.get('/create',(req , res ,next) => {
 
-	res.render('product/create',{csrfToken: req.csrfToken()});
+	//res.render('product/create',{csrfToken: req.csrfToken()});
+	res.render('product/create');
 
 });
 
 // Process create product
-router.post('/create',(req , res ,next) => {
+router.post('/create', upload.single('productImage'),(req , res ,next) => {
 
 	
 	//validation 
@@ -67,14 +127,15 @@ router.post('/create',(req , res ,next) => {
     }
 
 
-
+    console.log(req.file);
 
 	const newProduct = {
 
 		_id: new mongoose.Types.ObjectId(),
 		title: req.body.title,
 		description: req.body.description,
-		price: req.body.price
+		price: req.body.price,
+		imagePath: req.file.path
 
 
 	}
@@ -116,8 +177,8 @@ router.get('/edit/:id',(req , res ,next) => {
 	.then(product =>{
 
 	
-		res.render('product/edit',{csrfToken: req.csrfToken(), product: product});
-
+		//res.render('product/edit',{csrfToken: req.csrfToken(), product: product});
+		res.render('product/edit',{product: product});
 
 	}).catch(err =>{
 
@@ -136,7 +197,7 @@ router.get('/edit/:id',(req , res ,next) => {
 
 
 // Process edit product
-router.put('/:id',(req , res ,next) => {
+router.put('/:id',upload.single('productImage'),(req , res ,next) => {
 
 	
 	//validation 
@@ -167,9 +228,27 @@ router.put('/:id',(req , res ,next) => {
 	.exec()
 	.then(product=>{
 
-		product.title= req.body.title,
-		product.description= req.body.description,
-		product.price= req.body.price
+		product.title= req.body.title;
+		product.description= req.body.description;
+		product.price= req.body.price;
+
+		if(req.file){
+
+			if(product.imagePath){
+
+				fs.unlink(product.imagePath, function() {
+			      console.log("image deleted")
+	    		});
+
+			}
+
+			
+
+
+			product.imagePath = req.file.path;
+
+		}
+		
 
 		product.save()
 		.then(product=>{

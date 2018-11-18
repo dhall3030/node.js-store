@@ -1,0 +1,122 @@
+{{#if products}}
+
+
+
+<div class="row">
+	
+	
+
+		<ul>
+			{{# each products}}
+
+
+				
+				<div class="prod-container group"> 
+		
+					<div class="prod-img">
+						
+								{{#if this.item.imagePath}}
+								<img style="width: 150px" src="{{this.item.imagePath}}" alt="">
+								{{/if}}
+
+
+					</div>
+
+					<div>
+						<ul>
+							<li>
+								
+								<strong>{{this.item.title}}</strong>
+								
+								
+							</li>
+							<li>
+								
+								<strong>{{this.item.description}}</strong>
+
+							</li>
+						</ul>
+					</div>
+
+					<div><span>${{this.price}}</span></div>
+			
+					<div>
+						
+							<ul class="actions group">
+								<li><a href="/reduce/{{this.item._id}}">-</a></li>
+								<li><span>{{this.qty}}</span></li>
+								<li><a href="/increase/{{this.item._id}}" >+</a></li>
+
+								<li><a href="/remove/{{this.item._id}}">X</a></li>
+							</ul>
+
+					</div>
+
+
+
+				</div>
+
+
+
+				
+
+
+
+
+			{{/each}}
+
+			
+
+
+
+		</ul>
+
+
+
+	
+
+
+
+</div>
+
+<div class="row">
+	
+		<hr>
+
+		<strong>Total: {{ totalPrice }}</strong>
+
+	
+
+
+</div>
+
+<div class="row">
+	
+	
+
+		<a href="/checkout">checkout</a> 
+
+
+
+	
+
+
+</div>
+{{else}}
+
+
+
+<div class="row">
+	
+	
+
+		
+		<h2>No Items in Cart</h2>
+
+
+	
+
+
+</div>
+
+{{/if}}

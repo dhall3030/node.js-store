@@ -1,0 +1,79 @@
+@import 'susy'
+@import 'sass/reset'
+
+$susy: ('columns': susy-repeat(12),'gutters': 0.5em,'spread': 'wide','container-spread': 'wide')
+
+$font-stack: "Lucida Grande", Helvetica, Arial, sans-serif
+$primary-color: #000
+$container-width: 1120px
+
+
+
+body
+  font: 100% $font-stack
+  color: $primary-color
+  font-size: 0.9em
+  overflow-x: hidden
+
+
+a 
+  color: #00B7FF
+
+//grid
+
+.container 
+  width: $container-width
+  margin: 0 auto
+  padding: gutter()
+
+
+.row 
+  display: flex
+  flex-flow: row wrap
+
+.row > * 
+  flex: 1 100%
+
+
+.row:after 
+  content: ""
+  display: table
+  clear: both
+
+.product
+  flex: 0 span(4)
+  padding: 0.5em 0
+
+
+.prod-container div 
+	float: left
+	width: span(3)
+	display: block
+
+.prod-container .actions li 
+	float: left
+
+.prod-container .prod-img 
+	min-height: 100px
+
+
+//mixins
+
+=medium-screen()
+  flex: 0 span(6)
+  padding: 0.5em 0
+
+=small-screen()
+  padding: 0.5em 0
+  flex: 1 100%
+
+@media screen and (max-width: 992px)
+  .product 
+    +medium-screen()	
+
+@media screen and (max-width: 768px)
+  .product 
+    +small-screen()
+
+//@media screen and (max-width: 576px)
+ 

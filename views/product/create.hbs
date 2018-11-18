@@ -15,7 +15,7 @@
 			
 		{{/if}}
 		
-		<form action="/product/create" method="post">
+		<form action="/product/create" method="post" enctype="multipart/form-data">
 			
 			<div class="form-group">
 				<label for="title">Title</label> 
@@ -36,8 +36,19 @@
 
 				<input type="text" id="price" name="price">
 
+
+
 			</div>
-			<input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+			<div class="form-group">
+				<label for="productImage">Product Image</label> 
+
+				  <input type="file" name="productImage">
+
+			</div>
+
+
+			{{!-- <input type="hidden" name="_csrf" value="{{csrfToken}}"> --}}
 			<button type="submit" class="">Create</button>
 
 

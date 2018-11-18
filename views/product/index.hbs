@@ -13,6 +13,10 @@
 
 {{# each products }} 
 
+	{{#if this.imagePath}}
+		<img style="width: 150px" src="{{this.imagePath}}" alt="">
+	{{/if}}
+
 	<p><strong>Title</strong>: {{this.title}} | 
 		<a href="product/edit/{{this._id}}" >Edit</a> | 
 		<a href="product/delete/{{this._id}}" >Delete</a>

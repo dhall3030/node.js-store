@@ -17,7 +17,6 @@ const validator = require('express-validator');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/user');
-const shopRouter = require('./routes/shop');
 const productRouter = require('./routes/product');
 
 const app = express();
@@ -50,6 +49,10 @@ app.set('view engine', '.hbs');
 
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
+
+
+//upload folder
+app.use('/uploads',express.static('uploads'));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -93,7 +96,6 @@ app.use(function(req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
-app.use('/shop', shopRouter);
 app.use('/product', productRouter);
 
 // catch 404 and forward to error handler

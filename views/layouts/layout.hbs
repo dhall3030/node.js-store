@@ -3,16 +3,24 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{{title}}</title>
+
+	<link rel='stylesheet' href='/stylesheets/main.css' />
 </head>
 <body>
 
 	 {{> header}}
+		
+		<main>
+			
+			 <div class="container">
+			 	
+				 {{{body}}}
 
-	 <div class="container">
-	 	
-		 {{{body}}}
+			 </div>
 
-	 </div>
+
+		</main>
+	
 
 	{{> footer}}
 	

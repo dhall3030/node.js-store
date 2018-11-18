@@ -1,17 +1,36 @@
-This is the header
+<header>
+
+	<div class="container">
+		
+		This is the header
+			<a href="/cart">
+				
+				<span>{{session.cart.totalQty}}</span>
+
+			</a>
+			 
+
+			{{# if login}}
+
+				you are logged in <br>
+				<a href="/user/logout">Logout</a>
 
 
-{{# if login}}
+			{{else}} 
 
-	you are logged in <br>
-	<a href="/user/logout">Logout</a>
-
-
-{{else}} 
-
-<br>
-<a href="/user/signup">Sign up</a> | <a href="/user/signin">Sign in</a>
+			<br>
+			<a href="/user/signup">Sign up</a> | <a href="/user/signin">Sign in</a>
 
 
 
-{{/if}}
+
+
+			{{/if}}
+
+
+	</div>
+	
+
+
+</header>
+
