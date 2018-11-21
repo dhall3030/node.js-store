@@ -3,6 +3,8 @@ var router = express.Router();
 var Cart = require('../models/cart');
 var Product = require('../models/product');
 
+const {ensureAuthenticated,notAuthenticated} = require('../helpers/auth');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'The home page' });
@@ -180,6 +182,27 @@ router.get('/remove/:id',function(req, res, next){
 	cart.removeItem(productId); 
 	req.session.cart = cart; 
 	res.redirect('/cart'); 
+
+
+
+});
+
+
+router.get('/checkout' , ensureAuthenticated , function(req, res, next){
+
+
+	res.render('shop/checkout');
+
+
+	
+});
+
+
+
+router.post('/checkout' , ensureAuthenticated , function(req, res, next){
+
+
+
 
 
 

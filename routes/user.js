@@ -4,6 +4,7 @@ var router = express.Router();
 var csrf = require('csurf'); 
 var passport = require('passport');
 
+const {ensureAuthenticated,notAuthenticated} = require('../helpers/auth');
 
 var csrfProtection = csrf();
 
@@ -11,21 +12,21 @@ router.use(csrfProtection);
 
 
 
-router.get('/profile', function(req, res, next) {
+router.get('/profile',ensureAuthenticated, function(req, res, next) {
   //res.send('respond with a resource');
   res.render('user/profile');
 
 });
 
 
-router.get('/signup',  function(req, res, next) {
+router.get('/signup',notAuthenticated, function(req, res, next) {
 
   res.render('user/signup', {csrfToken: req.csrfToken()});
 
 });
 
 
-router.post('/signup', passport.authenticate('local.signup', {
+router.post('/signup',notAuthenticated, passport.authenticate('local.signup', {
 
   //successRedirect: '/user/profile', 
   failureRedirect: '/user/signup', 
@@ -54,7 +55,7 @@ router.post('/signup', passport.authenticate('local.signup', {
 });
 
 
-router.get('/signin',  function(req, res, next) {
+router.get('/signin',notAuthenticated,  function(req, res, next) {
 
   res.render('user/signin', {csrfToken: req.csrfToken() });
 
@@ -62,9 +63,9 @@ router.get('/signin',  function(req, res, next) {
 
 
 
-router.post('/signin', passport.authenticate('local.signin', {
+router.post('/signin',notAuthenticated, passport.authenticate('local.signin', {
 
-  successRedirect: '/user/profile', 
+  //successRedirect: '/user/profile', 
   failureRedirect: '/user/signin', 
   badRequestMessage : 'Please fill the form',
   failureFlash: true
@@ -90,11 +91,11 @@ router.post('/signin', passport.authenticate('local.signin', {
 });
 
 
-router.get('/logout', function(req, res, next){
+router.get('/logout',ensureAuthenticated, function(req, res, next){
 
   req.logout();
 
-  res.redirect('/');
+  res.redirect('/user/signin');
 
 
 });

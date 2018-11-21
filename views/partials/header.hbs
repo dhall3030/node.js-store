@@ -1,36 +1,49 @@
-<header>
+<header id="main-header">
 
-	<div class="container">
-		
-		This is the header
-			<a href="/cart">
+	<nav>
+
+		<div class="container">
+
+
+				<a class="brand" href="/">Node.js Store</a>
+			
+			    <ul>
+			    	<li>
+				    	<a href="/cart">
+						<i class="fa fa-shopping-cart"></i> <span class="badge">{{session.cart.totalQty}}</span>
+
+						</a>  
+					</li>
 				
-				<span>{{session.cart.totalQty}}</span>
+				 
 
-			</a>
-			 
+				{{# if login}}
 
-			{{# if login}}
-
-				you are logged in <br>
-				<a href="/user/logout">Logout</a>
-
-
-			{{else}} 
-
-			<br>
-			<a href="/user/signup">Sign up</a> | <a href="/user/signin">Sign in</a>
+					
+						<li><a href="/user/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+					
+					
 
 
+				{{else}} 
+
+					
+						<li><a href="/user/signup"><i class="fa fa-user-plus"></i> Sign up</a></li>
+
+						<li><a href="/user/signin"><i class="fa fa-sign-in"></i> Sign in</a></li>
+					
+					
 
 
 
-			{{/if}}
 
 
-	</div>
+				{{/if}}
+				</ul>
+
+		</div>
 	
-
+	</nav>
 
 </header>
 

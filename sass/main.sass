@@ -6,6 +6,30 @@ $susy: ('columns': susy-repeat(12),'gutters': 0.5em,'spread': 'wide','container-
 $font-stack: "Lucida Grande", Helvetica, Arial, sans-serif
 $primary-color: #000
 $container-width: 1120px
+$colorOne: #00B7FF
+
+//mixins
+
+=medium-screen()
+  flex: 0 span(6)
+  padding: 0.5em 0
+
+=small-screen()
+  padding: 0.5em 0
+  flex: 1 100%
+
+=border-radius($radius)
+  -webkit-border-radius: $radius
+  -moz-border-radius:    $radius
+  -ms-border-radius:     $radius
+  border-radius:         $radius 
+
+=transition($props)
+  -webkit-transition: $props
+  transition: $props
+
+
+$transProp: border 0.3s ease-out 0s , color 0.3s ease-out 0s
 
 
 
@@ -18,6 +42,23 @@ body
 
 a 
   color: #00B7FF
+
+
+
+p 
+  margin: 1em 0
+
+h1 
+  font-size: 2.5em
+  margin: 1em 0
+  line-height: 2.5em
+  font-weight: 600
+
+h2
+   font-size: 1.5em
+   margin: 1em 0
+   line-height: 1.5em
+   font-weight: 600
 
 //grid
 
@@ -40,6 +81,110 @@ a
   display: table
   clear: both
 
+
+#main-header 
+ background-color: #000
+ color: #FFF
+ width: 100%
+ nav 
+  min-height: 60px
+  .container 
+    position: relative
+  .brand 
+    float: left
+    padding: 15px 15px 15px 0 
+    color: #FFF
+    text-decoration: none
+
+  ul
+    float: right
+  ul li 
+    float: left
+    
+
+  ul li a , ul li a:hover 
+    color: #FFF
+    text-decoration: none
+    padding: 15px 
+    display: block
+
+.badge 
+  padding-right: .6em
+  padding-left: .6em
+  border-radius: 10rem
+  background-color: #FFF
+  color: #000
+
+
+//forms
+
+  //forms layout
+
+.input-container
+  width: 100%
+  margin: 30px auto
+  //border: 1px solid #000
+  padding: 20px
+
+.form-group 
+  margin: 10px auto
+
+label 
+    display: block
+    color: #000
+    margin-bottom: 5px
+
+
+//input 
+
+
+input[type="text"] , input[type="email"], input[type="password"] , textarea , input[type="tel"] , input[type="number"], select 
+  background-color: #FFF
+  padding: 10px
+  width: 100%
+  margin: 10px 0 10px 0
+  font-size: 0.9em
+  border: 1px solid #e6e7e8
+  transition: border 0.5s ease-out 0s
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  +border-radius(6px)
+
+
+
+
+input[type="text"]:focus , input[type="email"]:focus ,input[type="password"]:focus, textarea:focus 
+  background-color: #fff6e6
+  border: 1px solid #80ccff
+  outline: none
+
+textarea
+  font-family: inherit
+  font-size: 0.9em
+  white-space: pre-wrap
+
+button
+  color: #FFF
+  border: solid 2px $colorOne
+  background-color: $colorOne
+  padding: 10px 20px
+  font: inherit
+  cursor: pointer
+  +transition($transProp)
+  +border-radius(6px)
+  outline: none
+
+
+button:hover
+  color: #FFF
+  border: solid 2px $colorOne
+
+button:focus 
+  border: solid 2px #0092cc
+
+
+//product 
 .product
   flex: 0 span(4)
   padding: 0.5em 0
@@ -57,15 +202,12 @@ a
 	min-height: 100px
 
 
-//mixins
 
-=medium-screen()
-  flex: 0 span(6)
-  padding: 0.5em 0
 
-=small-screen()
-  padding: 0.5em 0
-  flex: 1 100%
+@media screen and (max-width: 1119px)
+ .container 
+   width: 100%
+   box-sizing: border-box
 
 @media screen and (max-width: 992px)
   .product 
