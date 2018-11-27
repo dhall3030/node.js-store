@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+var Order = require('../models/order');
+const Cart = require('../models/cart');
+
 var csrf = require('csurf'); 
 var passport = require('passport');
 
@@ -13,8 +16,43 @@ router.use(csrfProtection);
 
 
 router.get('/profile',ensureAuthenticated, function(req, res, next) {
+  
+  Order.find({user: req.user})
+   .exec()
+   .then(orders=>{ 
+
+      let cart; 
+
+      orders.forEach(function(order) {
+
+      cart = new Cart(order.cart);
+      order.items = cart.generateArray(); 
+
+      });
+
+      res.render('user/profile' ,{orders: orders});
+
+
+   })
+   .catch(err =>{
+
+
+      console.log(err); 
+
+     
+
+
+     
+
+
+   });
+
+
+
+
+
   //res.send('respond with a resource');
-  res.render('user/profile');
+ 
 
 });
 

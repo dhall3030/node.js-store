@@ -1,2 +1,37 @@
 <h1>User Profile</h1>
+
+
+<h2>Your Orders</h2>
+
+
+
+{{# each orders }}
+			
+			<ul class="panel">
+
+				<li><strong>{{formatDate this.date 'MMMM Do YYYY'}}</strong></li>
+				
+				{{# each this.items }}
+
+					<li>
+						
+						{{ this.price }}
+	                    {{ this.item.title }} | {{ this.qty }} Units
+
+
+					</li>
+
+
+		 		{{/each}}
+
+
+
+			</ul>
+
+			
+
+		 
+
+
+{{/each}}
        

@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var Cart = require('../models/cart');
+var mongoose = require('mongoose'); 
 var Product = require('../models/product');
+var Order = require('../models/order');
 
 const {ensureAuthenticated,notAuthenticated} = require('../helpers/auth');
 
@@ -190,8 +192,15 @@ router.get('/remove/:id',function(req, res, next){
 
 router.get('/checkout' , ensureAuthenticated , function(req, res, next){
 
+	if(!req.session.cart){
 
-	res.render('shop/checkout');
+		return res.redirect('/cart');
+		
+	}
+
+	let cart = new Cart(req.session.cart);
+
+	res.render('shop/checkout',{total: cart.totalPrice});
 
 
 	
@@ -202,7 +211,66 @@ router.get('/checkout' , ensureAuthenticated , function(req, res, next){
 router.post('/checkout' , ensureAuthenticated , function(req, res, next){
 
 
+	if(!req.session.cart){
 
+		return res.redirect('/cart');
+
+	}
+	
+	let cart = new Cart(req.session.cart);
+
+	var stripe = require("stripe")("sk_test_QCuNsqlTbDnR0xpgZIq2q1Rd"); 
+
+	stripe.charges.create({
+
+		amount: cart.totalPrice * 100 , 
+		currency: "cad",
+		source: req.body.stripeToken,
+		description: "Test Charge" 
+
+
+
+	},function(err, charge){
+
+		if(err){
+
+			req.flash('error', err.message);
+			return res.redirect('/checkout');
+
+		}
+
+		var order =new Order({
+			_id: new mongoose.Types.ObjectId(),
+			user: req.user,
+			cart: cart, 
+			address: req.body.address, 
+			name: req.body.name,
+			paymentId: charge.id
+
+
+		});
+
+		console.log(order);
+
+		order.save(function(err, result) {
+
+			if(err){
+
+				console.log(err);
+
+			}
+
+
+			req.flash('success', 'Successfully bought product!');
+			req.session.cart = null;
+			res.redirect('/');
+
+
+		});
+
+		
+
+	});
 
 
 

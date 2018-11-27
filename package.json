@@ -20,11 +20,13 @@
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "method-override": "^3.0.0",
+    "moment": "^2.22.2",
     "mongoose": "^5.3.11",
     "morgan": "~1.9.0",
     "multer": "^1.4.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "stripe": "^6.15.0",
     "susy": "^3.0.5"
   },
   "devDependencies": {

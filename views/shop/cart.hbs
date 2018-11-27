@@ -3,15 +3,17 @@
 
 
 <div class="row">
+
+	<h1>Your Cart</h1>
 	
 	
 
 		<ul>
 			{{# each products}}
 
-
-				
-				<div class="prod-container group"> 
+				<div class="panel">
+					
+					<div class="prod-container group"> 
 		
 					<div class="prod-img">
 						
@@ -43,11 +45,11 @@
 					<div>
 						
 							<ul class="actions group">
-								<li><a href="/reduce/{{this.item._id}}">-</a></li>
-								<li><span>{{this.qty}}</span></li>
-								<li><a href="/increase/{{this.item._id}}">+</a></li>
+								<li><a href="/reduce/{{this.item._id}}"><i class="fa fa-minus-circle"></i></a></li>
+								<li><span class="badge">{{this.qty}}</span></li>
+								<li><a href="/increase/{{this.item._id}}"><i class="fa fa-plus-circle"></i></a></li>
 
-								<li><a href="/remove/{{this.item._id}}">X</a></li>
+								<li>&nbsp;&nbsp;<a href="/remove/{{this.item._id}}"><i class="fa fa-trash"></i></a></li>
 							</ul>
 
 					</div>
@@ -55,6 +57,10 @@
 
 
 				</div>
+
+				</div>
+				
+				
 
 
 
@@ -90,11 +96,11 @@
 
 </div>
 
-<div class="row">
+<div>
 	
 	
 
-		<a href="/checkout">checkout</a> 
+		<a href="/checkout" class="btn">checkout</a> 
 
 
 

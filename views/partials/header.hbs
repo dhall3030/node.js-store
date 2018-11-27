@@ -10,7 +10,18 @@
 			    <ul>
 			    	<li>
 				    	<a href="/cart">
-						<i class="fa fa-shopping-cart"></i> <span class="badge">{{session.cart.totalQty}}</span>
+						<i class="fa fa-shopping-cart"></i> 
+						<span class="badge">
+						{{# if session.cart.totalQty}}
+
+							{{session.cart.totalQty}}
+
+						{{else}} 
+
+						0
+
+						{{/if}}
+						</span>
 
 						</a>  
 					</li>
@@ -19,8 +30,9 @@
 
 				{{# if login}}
 
-					
+						<li><a href="/user/profile"><i class="fa fa-user"></i> Your Profile</a></li>
 						<li><a href="/user/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+
 					
 					
 

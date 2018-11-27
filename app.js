@@ -43,7 +43,11 @@ mongoose.connect('mongodb://localhost/nodestore', {
 
 // view engine setup
 
-app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
+//hbs helpers
+
+const {formatDate} = require('./helpers/hbs');
+
+app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs' , helpers:{formatDate: formatDate}}));
 app.set('view engine', '.hbs');
 
 

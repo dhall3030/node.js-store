@@ -7,10 +7,15 @@
 
 				<div class="product">
 
+
+
+					{{#if this.imagePath}}
+					<img style="width: 150px" src="{{this.imagePath}}" alt="">
+					{{/if}}
 					<h3>{{this.title}}</h3>
 		            <p class="description">{{this.description}}</p>
 		            <div class="price">${{this.price}}</div>
-					<a href="/add-to-cart/{{this._id}}" role="button">Add to Shopping Cart</a>
+					<a href="/add-to-cart/{{this._id}}" class="btn" role="button">Add to Shopping Cart</a>
 
 	        	</div>
 
