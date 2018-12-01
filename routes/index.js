@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var Cart = require('../models/cart');
-var mongoose = require('mongoose'); 
-var Product = require('../models/product');
-var Order = require('../models/order');
+const express = require('express');
+const router = express.Router();
+const Cart = require('../models/cart');
+const mongoose = require('mongoose'); 
+const Product = require('../models/product');
+const Order = require('../models/order');
 
 const {ensureAuthenticated,notAuthenticated} = require('../helpers/auth');
 
@@ -55,8 +55,8 @@ router.get('/shop', function(req, res, next) {
 router.get('/add-to-cart/:id', function(req, res, next) {
 
 
-	var productId = req.params.id;
-	var cart = new Cart(req.session.cart ? req.session.cart : {} );
+	let productId = req.params.id;
+	let cart = new Cart(req.session.cart ? req.session.cart : {} );
 
 	Product.findById(productId, function(err, product){
 
@@ -84,8 +84,8 @@ router.get('/add-to-cart/:id', function(req, res, next) {
 router.get('/add-to-cart/:id', function(req, res, next) {
 
 
-	var productId = req.params.id;
-	var cart = new Cart(req.session.cart ? req.session.cart : {} );
+	let productId = req.params.id;
+	let cart = new Cart(req.session.cart ? req.session.cart : {} );
 
 	Product.findById(productId, function(err, product){
 
@@ -120,7 +120,10 @@ router.get('/cart', function(req, res, next){
 	}
 
 	let cart = new Cart(req.session.cart);
-	res.render('shop/cart', {products: cart.generateArray(), totalPrice: cart.totalPrice});
+
+	let totalPrice = Math.round(cart.totalPrice * 100) / 100;
+
+	res.render('shop/cart', {products: cart.generateArray(), totalPrice: totalPrice});
 
 
 });
@@ -163,8 +166,8 @@ router.get('/increase/:id', function(req, res, next) {
 
 router.get('/reduce/:id',function(req, res, next){
 
-	var productId = req.params.id;
-	var cart = new Cart(req.session.cart ? req.session.cart : {} );
+	let productId = req.params.id;
+	let cart = new Cart(req.session.cart ? req.session.cart : {} );
 	cart.reduceByOne(productId);
 	
 	req.session.cart = cart; 
@@ -179,8 +182,8 @@ router.get('/reduce/:id',function(req, res, next){
 
 router.get('/remove/:id',function(req, res, next){
 
-	var productId = req.params.id;
-	var cart = new Cart(req.session.cart ? req.session.cart : {} );
+	let productId = req.params.id;
+	let cart = new Cart(req.session.cart ? req.session.cart : {} );
 	cart.removeItem(productId); 
 	req.session.cart = cart; 
 	res.redirect('/cart'); 
@@ -200,7 +203,9 @@ router.get('/checkout' , ensureAuthenticated , function(req, res, next){
 
 	let cart = new Cart(req.session.cart);
 
-	res.render('shop/checkout',{total: cart.totalPrice});
+	let totalPrice = Math.round(cart.totalPrice * 100) / 100;
+
+	res.render('shop/checkout',{total: totalPrice});
 
 
 	
@@ -219,11 +224,13 @@ router.post('/checkout' , ensureAuthenticated , function(req, res, next){
 	
 	let cart = new Cart(req.session.cart);
 
-	var stripe = require("stripe")("sk_test_QCuNsqlTbDnR0xpgZIq2q1Rd"); 
+	let stripe = require("stripe")("sk_test_QCuNsqlTbDnR0xpgZIq2q1Rd"); 
+
+	let totalPrice = Math.round(cart.totalPrice * 100) / 100;
 
 	stripe.charges.create({
 
-		amount: cart.totalPrice * 100 , 
+		amount: totalPrice * 100 , 
 		currency: "cad",
 		source: req.body.stripeToken,
 		description: "Test Charge" 
@@ -239,7 +246,7 @@ router.post('/checkout' , ensureAuthenticated , function(req, res, next){
 
 		}
 
-		var order =new Order({
+		let order =new Order({
 			_id: new mongoose.Types.ObjectId(),
 			user: req.user,
 			cart: cart, 

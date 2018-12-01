@@ -1,21 +1,30 @@
 
+<div class="row">
+
 {{# each products}} 
 
-	<div class="row">
+	
 
 		{{# each this}} 
 
 				<div class="product">
 
+					<div class="panel">
+						
+						{{#if this.imagePath}}
+						<img style="width: 150px" src="{{this.imagePath}}" alt="">
+						{{/if}}
+						<h3>{{this.title}}</h3>
+			            <p class="description">{{this.description}}</p>
+			            <div class="price">${{this.price}}</div>
+						<a href="/add-to-cart/{{this._id}}" class="btn" role="button">Add to Shopping Cart</a>
 
 
-					{{#if this.imagePath}}
-					<img style="width: 150px" src="{{this.imagePath}}" alt="">
-					{{/if}}
-					<h3>{{this.title}}</h3>
-		            <p class="description">{{this.description}}</p>
-		            <div class="price">${{this.price}}</div>
-					<a href="/add-to-cart/{{this._id}}" class="btn" role="button">Add to Shopping Cart</a>
+					</div>
+
+
+
+					
 
 	        	</div>
 
@@ -23,6 +32,8 @@
 
 		{{/each}}
 
-	</div>
+	
 
 {{/each}}
+
+</div>

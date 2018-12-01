@@ -1,16 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var mongoose = require('mongoose'); 
-var Product = require('../models/product');
+const mongoose = require('mongoose'); 
+const Product = require('../models/product');
 
 const multer = require('multer');
 
 const fs = require('fs');
 
-var csrf = require('csurf');
+const csrf = require('csurf');
 
-var csrfProtection = csrf();
+const csrfProtection = csrf();
 
 //router.use(csrfProtection);
 
@@ -112,6 +112,7 @@ router.post('/create', upload.single('productImage'),(req , res ,next) => {
 	req.checkBody('title', 'title required').notEmpty();
     req.checkBody('description', 'description required').notEmpty();
     req.checkBody('price', 'price required').notEmpty();
+    req.checkbody('password2', 'Password do not match').equals(req.body.password);
     
 
     var errors = req.validationErrors();
