@@ -70,7 +70,7 @@ const upload = multer({
 
 
 
-router.get('/:page', function(req, res, next) {
+router.get('/page/:page', function(req, res, next) {
    
    let pageNumber = Math.max(0, req.params.page)
    let size = 10

@@ -9,7 +9,7 @@
 
 <h2>Products</h2>
 
-<div><a href="product/create">New Product</a></div>
+<div><a href="{{baseUrl}}/product/create">New Product</a></div>
 
 {{# each products }} 
 
@@ -17,9 +17,9 @@
 		<img style="width: 150px" src="{{baseUrl}}/{{this.imagePath}}" alt="">
 	{{/if}}
 
-	<p><strong>Title</strong>: {{this.title}} {{this.imagePath}} | 
-		<a href="product/edit/{{this._id}}" >Edit</a> | 
-		<a href="product/delete/{{this._id}}" >Delete</a>
+	<p><strong>Title</strong>: {{this.title}}  | 
+		<a href="{{baseUrl}}/product/edit/{{this._id}}" >Edit</a> | 
+		<a href="{{baseUrl}}/product/delete/{{this._id}}" >Delete</a>
 	</p>
 
 
@@ -29,22 +29,22 @@
 {{/each}}
 
 
-<div class="pagination pagination-centered">
+<div class="pagination">
 			  <ul>
 			    {{#paginate pagination type="first"}}
-			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/{{n}}">First</a></li>
+			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/page/{{n}}">First</a></li>
 			    {{/paginate}}
 			    {{#paginate pagination type="previous"}}
-			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/{{n}}">Prev</a></li>
+			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/page/{{n}}">Prev</a></li>
 			    {{/paginate}}
 			    {{#paginate pagination type="middle" limit="7"}}
-			      <li {{#if active}}class="active"{{/if}}><a href="/product/{{n}}">{{n}}</a></li>
+			      <li {{#if active}}class="active"{{/if}}><a href="/product/page/{{n}}">{{n}}</a></li>
 			    {{/paginate}}
 			    {{#paginate pagination type="next"}}
-			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/{{n}}">Next</a></li>
+			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/page/{{n}}">Next</a></li>
 			    {{/paginate}}
 			    {{#paginate pagination type="last"}}
-			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/{{n}}">Last</a></li>
+			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/page/{{n}}">Last</a></li>
 			    {{/paginate}}
 			  </ul>
 </div>
