@@ -70,15 +70,35 @@ const upload = multer({
 
 
 
-router.get('/', function(req, res, next) {
+router.get('/:page', function(req, res, next) {
    
-   Product.find()
+   let pageNumber = Math.max(0, req.params.page)
+   let size = 10
+
+   let query={}
+
+
+   Product.find(query)
+   .sort({date: 'desc'})
+   .skip(size * (pageNumber -1))
+   .limit(size)
    .exec()
    .then(products=>{
 
+   		Product.count(query).exec(function(err, count) {
+   		
+   			let pageCount = Math.ceil(count / size)
 
-   		res.render('product/index', { title: 'Manage Products', products: products});
+   			res.render('product/index', { 
 
+   				title: 'Manage Products', 
+   				products: products,
+   				pages: pageCount,
+				pagination: { page: pageNumber, pageCount: pageCount}
+
+   			});
+
+   		});
 
    })
    .catch(err =>{

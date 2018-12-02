@@ -19,6 +19,9 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/user');
 const productRouter = require('./routes/product');
 
+//pagination helper
+const paginate = require('handlebars-paginate');
+
 const app = express();
 
 //passport config
@@ -47,7 +50,18 @@ mongoose.connect('mongodb://localhost/nodestore', {
 
 const {formatDate} = require('./helpers/hbs');
 
-app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs' , helpers:{formatDate: formatDate}}));
+app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs' , 
+
+	helpers:{
+		
+		formatDate: formatDate,
+		paginate: paginate
+
+
+	}
+
+}));
+
 app.set('view engine', '.hbs');
 
 
@@ -93,6 +107,7 @@ app.use(function(req, res, next) {
   	res.locals.session = req.session;
   	res.locals.successMsg = req.flash('success');
   	res.locals.errorMsg = req.flash('error');
+  	res.locals.baseUrl = req.protocol+'://'+req.headers.host;
   	//res.locals.errors = req.flash('errors');
 	return next();
 

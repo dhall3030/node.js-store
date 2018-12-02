@@ -15,6 +15,7 @@
 			
 		{{/if}}
 		
+		<img style="width: 150px" src="{{baseUrl}}/{{product.imagePath}}" alt="">
 		<form action="/product/{{product._id}}?_method=PUT" enctype="multipart/form-data" method="post">
 			
 			<input type="hidden" name="_method" value="PUT">
