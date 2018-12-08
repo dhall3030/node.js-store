@@ -4,6 +4,11 @@ const router = express.Router();
 const mongoose = require('mongoose'); 
 const Product = require('../models/product');
 
+//const user = require('../helpers/connect-roles.js');
+
+
+
+
 const multer = require('multer');
 
 const fs = require('fs');
@@ -71,7 +76,7 @@ const upload = multer({
 
 
 router.get('/page/:page', function(req, res, next) {
-   
+   console.log('hello'+req.user.role);
    let pageNumber = Math.max(0, req.params.page)
    let size = 10
 
@@ -89,11 +94,14 @@ router.get('/page/:page', function(req, res, next) {
    		
    			let pageCount = Math.ceil(count / size)
 
+
+
    			res.render('product/index', { 
 
    				title: 'Manage Products', 
    				products: products,
    				pages: pageCount,
+   				path: '/product/page/',
 				pagination: { page: pageNumber, pageCount: pageCount}
 
    			});

@@ -1,6 +1,7 @@
 var passport = require('passport');
 var User = require('../models/user');
-var LocalStrategy = require('passport-local').Strategy;
+//var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local-roles').Strategy;
 
 passport.serializeUser(function(user, done){
 
@@ -25,10 +26,11 @@ passport.use('local.signup', new LocalStrategy({
 
 	usernameField: 'email',
 	passwordField: 'password', 
+	roleField: 'role',
 	passReqToCallback: true 
 
 
-}, function(req, email ,password, done){ 
+}, function(req, email ,password,role, done){ 
 
 
 	
@@ -66,6 +68,10 @@ passport.use('local.signup', new LocalStrategy({
 		var newUser = new User(); 
 		newUser.email = email; 
 		newUser.password = newUser.encryptPassword(password);
+		newUser.role = 'customer';
+		
+		console.log(newUser);
+
 		newUser.save(function(err, result){
 
 			if(err) {
@@ -86,9 +92,10 @@ passport.use('local.signin', new LocalStrategy({
 
 	usernameField: 'email',
 	passwordField: 'password', 
+	roleField: 'role',
 	passReqToCallback: true 
 
-},function(req, email ,password, done){
+},function(req, email ,password,role, done){
 
 
 	//validation 

@@ -11,6 +11,8 @@
 
 <div><a href="{{baseUrl}}/product/create">New Product</a></div>
 
+{{> pagination}}
+
 {{# each products }} 
 
 	{{#if this.imagePath}}
@@ -28,23 +30,4 @@
 
 {{/each}}
 
-
-<div class="pagination">
-			  <ul>
-			    {{#paginate pagination type="first"}}
-			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/page/{{n}}">First</a></li>
-			    {{/paginate}}
-			    {{#paginate pagination type="previous"}}
-			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/page/{{n}}">Prev</a></li>
-			    {{/paginate}}
-			    {{#paginate pagination type="middle" limit="7"}}
-			      <li {{#if active}}class="active"{{/if}}><a href="/product/page/{{n}}">{{n}}</a></li>
-			    {{/paginate}}
-			    {{#paginate pagination type="next"}}
-			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/page/{{n}}">Next</a></li>
-			    {{/paginate}}
-			    {{#paginate pagination type="last"}}
-			      <li {{#if disabled}}class="disabled"{{/if}}><a href="/product/page/{{n}}">Last</a></li>
-			    {{/paginate}}
-			  </ul>
-</div>
+{{> pagination}}

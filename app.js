@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore= require('connect-mongo')(session);
 const passport = require('passport'); 
+const ConnectRoles = require('connect-roles');
 const flash = require('connect-flash');
 const validator = require('express-validator'); 
 //end added
@@ -23,6 +24,11 @@ const productRouter = require('./routes/product');
 const paginate = require('handlebars-paginate');
 
 const app = express();
+
+//Connect Roles Middleware
+
+const user = require('./helpers/connect-roles.js');
+
 
 //passport config
 require('./config/passport');
@@ -95,6 +101,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use(user.middleware());
+
+
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Method override middleware 
@@ -115,7 +126,7 @@ app.use(function(req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
-app.use('/product', productRouter);
+app.use('/product',user.can('access admin page'), productRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
