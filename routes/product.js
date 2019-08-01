@@ -140,7 +140,7 @@ router.post('/create', upload.single('productImage'),(req , res ,next) => {
 	req.checkBody('title', 'title required').notEmpty();
     req.checkBody('description', 'description required').notEmpty();
     req.checkBody('price', 'price required').notEmpty();
-    req.checkbody('password2', 'Password do not match').equals(req.body.password);
+    //req.checkBody('password2', 'Password do not match').equals(req.body.password);
     
 
     var errors = req.validationErrors();
@@ -177,7 +177,7 @@ router.post('/create', upload.single('productImage'),(req , res ,next) => {
 
 		req.flash('success', 'Product created successfully!');
 
-		res.redirect('/product');
+		res.redirect('/product/page/1');
 
 
 
