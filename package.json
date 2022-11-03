@@ -30,7 +30,7 @@
     "susy": "^3.0.5"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-minify": "^3.1.0",
     "gulp-sass": "^4.0.2",
     "node-sass": "^4.10.0"
